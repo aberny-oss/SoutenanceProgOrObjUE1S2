@@ -28,7 +28,7 @@ public:
     // Getter moderne
     virtual int GetNbAttacks() const;
     virtual void DisplayAttacks() const;
-    virtual void UseAttackByIndex(int index);
+    /*virtual void UseAttackByIndex(int index);*/
     virtual void AttackByIndex(std::vector<std::string> attacks);
 
     void TakeDamage(int dmg);

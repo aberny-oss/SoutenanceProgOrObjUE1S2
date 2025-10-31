@@ -32,15 +32,15 @@ void Character::DisplayAttacks() const {
     std::cout << "\n";
 }
 
-// Utilise une attaque selon son index
-void Character::UseAttackByIndex(int index) {
-    switch (index) {
-    case 1: SimpleAttack(); break;
-    case 2: HeavyAttack(); break;
-    case 3: UltimeAttack(); break;
-    default: std::cout << "Attaque invalide !\n"; break;
-    }
-}
+//// Utilise une attaque selon son index
+//void Character::UseAttackByIndex(int index) {
+//    switch (index) {
+//    case 1: SimpleAttack(); break;
+//    case 2: HeavyAttack(); break;
+//    case 3: UltimeAttack(); break;
+//    default: std::cout << "Attaque invalide !\n"; break;
+//    }
+//}
 
 void Character::AttackByIndex(std::vector<std::string> attacks)
 {
