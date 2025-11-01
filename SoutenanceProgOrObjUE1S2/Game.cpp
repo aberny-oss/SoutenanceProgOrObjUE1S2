@@ -7,9 +7,11 @@ void Game::Init() {
     isRunning = true;
     std::string input;
 
-    Manager<Character> characterManager;
+    characterManager.Add(std::make_unique<Warrior>("hero1"));
     characterManager.Add(std::make_unique<Warrior>("Vilain1"));
-    characterManager.Add(std::make_unique<Warrior>("Vilain2"));
+
+    hero = characterManager.Get(0);
+    ennemy = characterManager.Get(1);
 
     /*Manager<Item> itemManager;
     itemManager.Add(std::make_unique<Item>("Epee legendaire"));
@@ -53,14 +55,14 @@ void Game::ShowMenuPrincipal()
     art.ARTConsoleMenu(action); // affiche menu initial
 
     while (true) {
-        inp.Update(input); // inp est un objet Input
+        inp.Update(); // inp est un objet Input
 
-        if (input == Input::PLAY_GAME) {
+        if (inp.GetLastInput() == Input::PLAY_GAME) {
             action = 2;
             menuID = 1;
             break;
         }
-        else if (input == Input::QUIT_GAME) {
+        else if (inp.GetLastInput() == Input::QUIT_GAME) {
             action = 3;
             art.ARTConsoleMenu(action);
             state = GameState::QUIT;
@@ -75,15 +77,21 @@ void Game::ShowMenuPrincipal()
 
 void Game::ShowMenuPerso()
 {
-    bool first = true;
-    if (first == true)
+    bool stay = true;
+
+    while (stay)
     {
-        /*art.ARTPersoMenu();*/
+        system("cls"); // efface l'écran à chaque boucle
+        hero->DisplayCharacter(); // affiche le chevalier
 
+        inp.Update(); // récupère l'entrée utilisateur
+        std::string input = inp.GetLastInput();
 
+        if (input == "q") // exemple : quitter le menu perso
+            stay = false;
+
+        // tu peux ici gérer d'autres commandes comme "i" pour inventaire, etc.
     }
-    first = false;
-
 }
 
 void Game::Shutdown() {

@@ -1,8 +1,9 @@
 #include "Character.h"
 
 //Méthode d'affichage
-void Character::DisplayCharacter() const {
+void Character::DisplayCharacter() {
     std::cout << name << " - Type: " << type << " - Lvl: " << level << " - PV: " << health << "\n";
+    art.ARTCharacter(type);
 }
 
 std::string Character::GetName() const

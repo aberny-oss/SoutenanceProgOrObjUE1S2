@@ -9,7 +9,8 @@ class Warrior : public Character
 public:
 
     Warrior(const std::string& name)
-        : Character(name, "Warrior", 10, 250) {
+        : Character(name, "Warrior", 10, 250)
+    {
         attacks = { "Simple", "Heavy", "Ultime" }; // toutes les attaques
     }
 

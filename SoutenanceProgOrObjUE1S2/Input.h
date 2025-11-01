@@ -17,7 +17,7 @@ public:
 	Input() : lastInput() {}
 
 	// lit une entrée utilisateur
-	void Update(std::string& input);
+	void Update();
 
     // affiche la dernière touche
 	void Display() const;

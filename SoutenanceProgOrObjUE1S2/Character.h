@@ -2,6 +2,8 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include "ASCIIART.h"
+#include <iomanip>
 
 class Character {
 protected:
@@ -10,10 +12,11 @@ protected:
     int level;
     int health;
     std::vector<std::string> attacks;
+    ASCIIART art;
 
 public:
     Character(const std::string& n, const std::string& t, int l, int h)
-        : name(n), type(t), level(l), health(h)
+        : name(n), type(t), level(l), health(h), art()
     {
         attacks = { "Simple", "Heavy", "Ultime" }; // toutes les attaques
     }
@@ -21,7 +24,7 @@ public:
 
     virtual ~Character() {} // destructeur virtuel
 
-    void DisplayCharacter() const;
+    void DisplayCharacter();
 
     std::string GetName() const;
 

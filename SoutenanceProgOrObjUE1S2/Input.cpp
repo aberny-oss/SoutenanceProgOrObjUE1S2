@@ -5,10 +5,12 @@ const std::string Input::PLAY_GAME = "j";
 const std::string Input::QUIT_GAME = "q";
 
 // lit une entrée utilisateur
-void Input::Update(std::string& input)
+void Input::Update()
 {
-    std::getline(std::cin, input);
+    std::getline(std::cin, lastInput);
 }
+
+
 
 
 void Input::Display() const

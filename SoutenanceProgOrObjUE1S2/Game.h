@@ -24,8 +24,11 @@ private:
     ASCIIART art;        // menu ASCII
     Input inp;           // gestionnaire d'input
     std::string input;   // input utilisateur
+    Manager<Character> characterManager;
 
 public:
+    Character* hero;
+    Character* ennemy;
 
     Game() : isRunning(false), turn(1), state(GameState::MENU), mode(Mode::MODE_GAME), menuID(0), art()
     {
