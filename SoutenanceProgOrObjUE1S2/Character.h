@@ -2,7 +2,6 @@
 #include <string>
 #include <vector>
 #include <iostream>
-#include "Game.h"
 
 class Character {
 protected:
@@ -35,7 +34,7 @@ public:
     void TakeDamage(int dmg);
     void Heal(int amount);
 
-    virtual void SimpleAttack();
-    virtual void HeavyAttack();
-    virtual void UltimeAttack();
+    virtual void SimpleAttack() = 0;
+    virtual void HeavyAttack() = 0;
+    virtual void UltimeAttack() = 0;
 };

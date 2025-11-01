@@ -1,17 +1,12 @@
 #pragma once
 #include <iostream>
-#include "Manager.h"
-#include "Input.h"
-class ASCIIART
-{
+
+class ASCIIART {
 private:
-	Manager<Input>& inputManager; // référence vers ton manager
-
+    std::string* input; // pointeur vers la variable input de Game
 public:
-
-	ASCIIART(Manager<Input>& mgr) : inputManager(mgr) {}
-
-	void ARTConsoleMenu(int action);
-	void ARTPersoMenu();
+    void SetInput(std::string* inputPtr) { input = inputPtr; }
+    void ARTCharacter();
+    void ARTConsoleMenu(int action); // plus besoin de paramètre
+    void ARTPersoMenu();
 };
-

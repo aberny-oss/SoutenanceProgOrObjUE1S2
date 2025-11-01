@@ -8,6 +8,7 @@
 #include "ASCIIART.h"
 #include "Utils.h"
 #include "Input.h"
+#include "Warrior.h"
 
 enum class GameState{MENU, COMBAT, VICTORY, DEFEAT, QUIT};
 
@@ -17,14 +18,19 @@ class Game {
 private:
     bool isRunning;
     int turn;
-    GameState state; // state contient l'état actuel du jeu
+    GameState state;     // état actuel du jeu
     Mode mode;
-    int menuID; // 0 = principal, 1 = inventaire, 2 = pause...
-    Manager<Input> inputManager;
-    ASCIIART art;
+    int menuID;          // 0 = menu principal, 1 = inventaire, etc.
+    ASCIIART art;        // menu ASCII
+    Input inp;           // gestionnaire d'input
+    std::string input;   // input utilisateur
 
 public:
-    Game() : isRunning(false), turn(1), state(GameState::MENU), mode(Mode::MODE_GAME), menuID(0), art(inputManager) {}
+
+    Game() : isRunning(false), turn(1), state(GameState::MENU), mode(Mode::MODE_GAME), menuID(0), art()
+    {
+        art.SetInput(&input); // on passe le pointeur de input à ASCIIART
+    }
 
     void Init();
 

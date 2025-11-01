@@ -5,8 +5,19 @@
 void Game::Init() {
     std::cout << "=== Initialisation du jeu ===\n";
     isRunning = true;
-    // on ajoute un Input au manager
-    inputManager.Add(std::make_unique<Input>());
+    std::string input;
+
+    Manager<Character> characterManager;
+    characterManager.Add(std::make_unique<Warrior>("Vilain1"));
+    characterManager.Add(std::make_unique<Warrior>("Vilain2"));
+
+    /*Manager<Item> itemManager;
+    itemManager.Add(std::make_unique<Item>("Epee legendaire"));
+    itemManager.Add(std::make_unique<Item>("Potion de soin"));
+
+    Manager<Quest> questManager;
+    questManager.Add(std::make_unique<Quest>("Sauver le village"));*/
+
 }
 
 
@@ -39,25 +50,17 @@ void Game::Run()
 void Game::ShowMenuPrincipal()
 {
     int action = 0;
+    art.ARTConsoleMenu(action); // affiche menu initial
+
     while (true) {
+        inp.Update(input); // inp est un objet Input
 
-        art.ARTConsoleMenu(action);
-        inputManager.UpdateAll();   // lit la touche
-        //inputManager.DisplayAll();  // affiche la touche
-
-        // on récupère le premier Input géré
-        Input* inp = inputManager.Get(0);
-        if (!inp) continue;
-
-        // on vérifie la commande
-        std::string value = inp->GetLastInput();
-        if (value == Input::PLAY_GAME) {
+        if (input == Input::PLAY_GAME) {
             action = 2;
-            art.ARTConsoleMenu(action);
             menuID = 1;
             break;
         }
-        else if (value == Input::QUIT_GAME) {
+        else if (input == Input::QUIT_GAME) {
             action = 3;
             art.ARTConsoleMenu(action);
             state = GameState::QUIT;
@@ -65,6 +68,7 @@ void Game::ShowMenuPrincipal()
         }
         else {
             action = 1;
+            art.ARTConsoleMenu(action);
         }
     }
 }
@@ -74,7 +78,7 @@ void Game::ShowMenuPerso()
     bool first = true;
     if (first == true)
     {
-        art.ARTPersoMenu();
+        /*art.ARTPersoMenu();*/
 
 
     }

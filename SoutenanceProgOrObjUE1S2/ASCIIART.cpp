@@ -1,38 +1,24 @@
 #include "ASCIIART.h"
 
 
-void ASCIIART::ARTConsoleMenu(int action)
+void ASCIIART::ARTCharacter()
 {
 
-    const int zoneWidth = 9; // largeur de la zone dynamique
-    char displayZone[zoneWidth + 1]; // +1 pour le '\0'
+}
 
-    // Remplissage par défaut : espaces
-    for (int i = 0; i < zoneWidth; ++i)
-        displayZone[i] = ' ';
-    displayZone[zoneWidth] = '\0';
-
-    int pos = 0; // position actuelle dans la zone dynamique
-
-    // Parcours des inputs du manager
-    for (size_t idx = 0; idx < inputManager.Size() && pos < zoneWidth; ++idx) {
-        Input* inp = inputManager.Get(idx);
-        if (!inp) continue;
-
-        std::string val = inp->GetLastInput();
-
-        // Copier tous les caractères de cet input dans displayZone
-        for (char c : val) {
-            if (pos >= zoneWidth) break; // ne pas dépasser la largeur
-            displayZone[pos++] = c;
-        }
+void ASCIIART::ARTConsoleMenu(int action)
+{
+    std::string displayZone = input->substr(0, 9); // on prend les 9 premiers caractères
+    if (displayZone.size() < 9)
+    {
+        displayZone += std::string(9 - displayZone.size(), ' ');
     }
 
 
-	if (action == 0)
-	{
+    if (action == 0)
+    {
         system("cls");
-		std::cout << R"(
+        std::cout << R"(
     __________________________
    |OFFo oON                  |
    | .----------------------. |
@@ -59,7 +45,7 @@ void ASCIIART::ARTConsoleMenu(int action)
    |                   ,:;:'.'
    '-----------------------`
 )" << std::endl;
-	}
+    }
     else if (action == 1)
     {
         system("cls");
@@ -132,43 +118,6 @@ void ASCIIART::ARTConsoleMenu(int action)
    '-----------------------`
 )" << std::endl;
     }
-    else if (action == 3)
-    {
-        system("cls");
-        std::cout << R"(
-    __________________________
-   |OFFo oON                  |
-   | .----------------------. |
-   | |  .----------------.  | |
-   | |  |    SYSTEME     |  | |
-   | |))|    AB.inc      |  | |
-   | |  |                |  | |
-)";
-
-        // Affichage de la ligne dynamique
-        std::cout << "   | |  |   " << displayZone << "    |  | |\n";
-        std::cout << "   | |  |   A bientot !  |  | |\n";
-        std::cout << "   | |  |                |  | |\n";
-        std::cout << "   | |  '----------------'  | |";
-
-        std::cout << R"(
-   | |__GAME BOY____________/ |
-   |          ________        |
-   |    .    (Nintendo)       |
-   |  _| |_   """"""""   .-.  |
-   |-[_   _]-       .-. (   ) |
-   |   |_|         (   ) '-'  |
-   |    '           '-'   A   |
-   |                 B        |
-   |          ___   ___       |
-   |         (___) (___)  ,., |
-   |        select start ;:;: |
-   |                    ,;:;' /
-   |                   ,:;:'.'
-   '-----------------------`
-)" << std::endl;
-    }
-
 }
 
 void ASCIIART::ARTPersoMenu()

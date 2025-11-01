@@ -17,12 +17,15 @@ public:
 	Input() : lastInput() {}
 
 	// lit une entrée utilisateur
-	void Update();
+	void Update(std::string& input);
 
     // affiche la dernière touche
 	void Display() const;
 
-	std::string GetLastInput() const { return lastInput; }
+	std::string GetLastInput() const
+	{
+		return lastInput;
+	}
 
 	static bool IsPressKey(std::string c)
 	{
