@@ -14,7 +14,8 @@ protected:
 
 public:
     Character(const std::string& n, const std::string& t, int l, int h)
-        : name(n), type(t), level(l), health(h) {
+        : name(n), type(t), level(l), health(h)
+    {
         attacks = { "Simple", "Heavy", "Ultime" }; // toutes les attaques
     }
 

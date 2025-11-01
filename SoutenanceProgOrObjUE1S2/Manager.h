@@ -2,15 +2,14 @@
 #include <vector>
 #include <memory>
 #include <iostream>
-#include "Character.h"
 
 template <typename T>
 class Manager {
 private:
     std::vector<std::unique_ptr<T>> objects;
-
-
 public:
+
+    Manager() : objects{} {}
 
     void Add(std::unique_ptr<T> obj) {
         objects.push_back(std::move(obj));
@@ -26,11 +25,19 @@ public:
             obj->Display();
     }
 
-    // Option bonus : rechercher un objet par nom
-    T* FindByName(const std::string& name) {
-        for (auto& obj : objects)
-            if (obj->GetName() == name)
-                return obj.get();
+    //// Option bonus : rechercher un objet par nom
+    //T* FindByName(const std::string& name) {
+    //    for (auto& obj : objects)
+    //        if (obj->GetName() == name)
+    //            return obj.get();
+    //    return nullptr;
+    //}
+
+    size_t Size() const { return objects.size(); }
+
+    T* Get(size_t index) {
+        if (index < objects.size())
+            return objects[index].get();
         return nullptr;
     }
 
