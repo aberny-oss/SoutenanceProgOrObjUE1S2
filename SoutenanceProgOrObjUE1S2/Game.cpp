@@ -7,11 +7,9 @@ void Game::Init() {
     isRunning = true;
     std::string input;
 
-    characterManager.Add(std::make_unique<Warrior>("hero1"));
-    characterManager.Add(std::make_unique<Warrior>("Vilain1"));
+    characterManager.Add(std::make_unique<Warrior>("Vilain1", "Ennemy"));
+    characterManager.Add(std::make_unique<Warrior>("Vilain2", "Ennemy"));
 
-    hero = characterManager.Get(0);
-    ennemy = characterManager.Get(1);
 
     /*Manager<Item> itemManager;
     itemManager.Add(std::make_unique<Item>("Epee legendaire"));
@@ -20,6 +18,38 @@ void Game::Init() {
     Manager<Quest> questManager;
     questManager.Add(std::make_unique<Quest>("Sauver le village"));*/
 
+}
+
+void Game::CreateCharacter()
+{
+    std::string name, type;
+    std::cout << "Veuillez entrer votre nom de personnage : ";
+    std::getline(std::cin, name);
+    while (true)
+    {
+        std::cout << "Type du personnage (Warrior / Mage / Goblin) : ";
+        std::getline(std::cin, type);
+
+        // Conversion en minuscules
+        std::transform(type.begin(), type.end(), type.begin(),
+            [](unsigned char c) { return std::tolower(c); });
+
+        if (type == "warrior")
+        {
+            return characterManager.Add(std::make_unique<Warrior>(name, "Player"));
+        }
+       /* else if (type == "mage")
+        {
+            return characterManager.Add(std::make_unique<Mage>(name, "Player"));
+        }
+        else if (type == "goblin")
+        {
+            return characterManager.Add(std::make_unique<Goblin>(name, "Player"));
+        }*/
+
+        system("cls");
+        std::cout << "Type invalide. Reessaie !" << std::endl;
+    }
 }
 
 
@@ -56,15 +86,18 @@ void Game::ShowMenuPrincipal()
 
     while (true) {
         inp.Update(); // inp est un objet Input
+        input = inp.GetLastInput();
+
+        // Mettre à jour l'affichage dynamique
+        art.SetInput(input);
 
         if (inp.GetLastInput() == Input::PLAY_GAME) {
             action = 2;
+            art.ARTConsoleMenu(action);
             menuID = 1;
             break;
         }
         else if (inp.GetLastInput() == Input::QUIT_GAME) {
-            action = 3;
-            art.ARTConsoleMenu(action);
             state = GameState::QUIT;
             break;
         }
@@ -82,16 +115,23 @@ void Game::ShowMenuPerso()
     while (stay)
     {
         system("cls"); // efface l'écran à chaque boucle
-        hero->DisplayCharacter(); // affiche le chevalier
 
-        inp.Update(); // récupère l'entrée utilisateur
-        std::string input = inp.GetLastInput();
+        if (firstIteration == true)
+        {
+            CreateCharacter();
+            firstIteration = false;
+        }
+        system("cls");
+        // 1 Construire le tableau une fois
+        characterManager.BuildPriorityTable2D("Ennemy", 2, 2);
 
-        if (input == "q") // exemple : quitter le menu perso
-            stay = false;
+        // 2 Afficher autant de fois que tu veux
+        characterManager.DisplayTable2D();
+        inp.Update();
 
-        // tu peux ici gérer d'autres commandes comme "i" pour inventaire, etc.
+        stay = false;
     }
+
 }
 
 void Game::Shutdown() {

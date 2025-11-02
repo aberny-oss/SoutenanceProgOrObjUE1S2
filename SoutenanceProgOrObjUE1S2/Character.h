@@ -2,8 +2,10 @@
 #include <string>
 #include <vector>
 #include <iostream>
-#include "ASCIIART.h"
 #include <iomanip>
+#include "ASCIIART.h"
+#include "Manager.h"
+#include <iomanip> // pour std::setw
 
 class Character {
 protected:
@@ -13,10 +15,11 @@ protected:
     int health;
     std::vector<std::string> attacks;
     ASCIIART art;
+    std::string team;
 
 public:
-    Character(const std::string& n, const std::string& t, int l, int h)
-        : name(n), type(t), level(l), health(h), art()
+    Character(const std::string& name, const std::string& type, int level, int health, const std::string& team)
+        : name(name), type(type), level(level), health(health), team(team), art()
     {
         attacks = { "Simple", "Heavy", "Ultime" }; // toutes les attaques
     }
@@ -24,15 +27,18 @@ public:
 
     virtual ~Character() {} // destructeur virtuel
 
-    void DisplayCharacter();
+    /*void Display();*/
+
+    virtual std::vector<std::string> Display();  // Retourne l'ASCII art ligne par ligne
 
     std::string GetName() const;
+    std::string GetTeam() const;
 
     // Getter moderne
     virtual int GetNbAttacks() const;
     virtual void DisplayAttacks() const;
     /*virtual void UseAttackByIndex(int index);*/
-    virtual void AttackByIndex(std::vector<std::string> attacks);
+    void AttackByIndex(std::vector<std::string> attacks);
 
     void TakeDamage(int dmg);
     void Heal(int amount);

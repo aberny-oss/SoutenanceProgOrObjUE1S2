@@ -25,18 +25,17 @@ private:
     Input inp;           // gestionnaire d'input
     std::string input;   // input utilisateur
     Manager<Character> characterManager;
+    bool firstIteration;
 
 public:
-    Character* hero;
-    Character* ennemy;
 
-    Game() : isRunning(false), turn(1), state(GameState::MENU), mode(Mode::MODE_GAME), menuID(0), art()
+    Game() : isRunning(false), turn(1), state(GameState::MENU), mode(Mode::MODE_GAME), menuID(0), art(), firstIteration(true)
     {
-        art.SetInput(&input); // on passe le pointeur de input à ASCIIART
+        art.SetInput(input); // on passe la string de input à ASCIIART
     }
 
     void Init();
-
+    void CreateCharacter();
 
     void Run();
 

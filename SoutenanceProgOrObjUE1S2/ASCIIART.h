@@ -1,11 +1,15 @@
 #pragma once
 #include <iostream>
+#include <string>
+#include <vector>
 
 class ASCIIART {
 private:
-    std::string* input; // pointeur vers la variable input de Game
+    std::string inputValue; // stocke la chaîne
 public:
-    void SetInput(std::string* inputPtr);
-    void ARTCharacter(std::string& type);
+    ASCIIART() = default;
+
+    void SetInput(const std::string& str);
+    void ARTCharacter(const std::string& type);
     void ARTConsoleMenu(int action); // plus besoin de paramètre
 };

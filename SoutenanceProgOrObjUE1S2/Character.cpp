@@ -1,14 +1,27 @@
 #include "Character.h"
 
-//Méthode d'affichage
-void Character::DisplayCharacter() {
-    std::cout << name << " - Type: " << type << " - Lvl: " << level << " - PV: " << health << "\n";
-    art.ARTCharacter(type);
+////Méthode d'affichage
+//void Character::Display() {
+//    std::cout << name << " - Type: " << type << " - Lvl: " << level << " - PV: " << health << "\n";
+//    art.ARTCharacter(type);
+//}
+
+
+
+// Retourne l'ASCII art découpé en lignes AVEC les infos intégrées
+std::vector<std::string> Character::Display()
+{
+    
 }
 
 std::string Character::GetName() const
 {
     return name;
+}
+
+std::string Character::GetTeam() const
+{
+    return team;
 }
 
 

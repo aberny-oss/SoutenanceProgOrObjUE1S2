@@ -1,12 +1,14 @@
 #include "ASCIIART.h"
 
-void ASCIIART::SetInput(std::string* inputPtr)
-{
-    input = inputPtr;
+void ASCIIART::SetInput(const std::string& str)
+{ 
+    inputValue = str;
 }
 
 
-void ASCIIART::ARTCharacter(std::string& type)
+
+
+void ASCIIART::ARTCharacter(const std::string& type)
 {
     if (type == "Warrior")
     {
@@ -22,21 +24,20 @@ void ASCIIART::ARTCharacter(std::string& type)
      /_|_\
 )" << std::endl;
     }
-
-
 }
 
 void ASCIIART::ARTConsoleMenu(int action)
 {
-    std::string displayZone = input->substr(0, 9); // on prend les 9 premiers caractères
-    if (displayZone.size() < 9)
-    {
+    // Préparer la ligne dynamique de 9 caractères
+    std::string displayZone = inputValue;
+    if (displayZone.size() > 9)
+        displayZone = displayZone.substr(0, 9);
+    else if (displayZone.size() < 9)
         displayZone += std::string(9 - displayZone.size(), ' ');
-    }
 
-
-    if (action == 0)
+    switch (action)
     {
+    case 0:
         system("cls");
         std::cout << R"(
     __________________________
@@ -65,9 +66,8 @@ void ASCIIART::ARTConsoleMenu(int action)
    |                   ,:;:'.'
    '-----------------------`
 )" << std::endl;
-    }
-    else if (action == 1)
-    {
+        break;
+    case 1:
         system("cls");
         std::cout << R"(
     __________________________
@@ -101,9 +101,8 @@ void ASCIIART::ARTConsoleMenu(int action)
    |                   ,:;:'.'
    '-----------------------`
 )" << std::endl;
-    }
-    else if (action == 2)
-    {
+        break;
+    case 2:
         system("cls");
         std::cout << R"(
     __________________________
@@ -137,6 +136,7 @@ void ASCIIART::ARTConsoleMenu(int action)
    |                   ,:;:'.'
    '-----------------------`
 )" << std::endl;
+        break;
     }
 }
 

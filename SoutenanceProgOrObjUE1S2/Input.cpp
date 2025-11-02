@@ -10,9 +10,6 @@ void Input::Update()
     std::getline(std::cin, lastInput);
 }
 
-
-
-
 void Input::Display() const
 {
     std::cout << lastInput << std::endl;

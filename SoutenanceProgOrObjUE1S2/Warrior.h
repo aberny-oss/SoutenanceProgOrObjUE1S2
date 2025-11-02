@@ -8,12 +8,13 @@ class Warrior : public Character
 {
 public:
 
-    Warrior(const std::string& name)
-        : Character(name, "Warrior", 10, 250)
+    Warrior(const std::string& name, const std::string& team)
+        : Character(name, "Warrior", 10, 250, team)
     {
         attacks = { "Simple", "Heavy", "Ultime" }; // toutes les attaques
     }
 
+    std::vector<std::string>Display() override;
     void SimpleAttack() override;
 
     void HeavyAttack() override;
