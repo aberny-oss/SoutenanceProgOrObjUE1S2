@@ -1,7 +1,6 @@
 #include "Utils.h"
-#include <iostream>
 
-std::string AskStr(const std::string& msg, const std::vector<std::string>& validChoices)
+std::string Utils::AskStr(const std::string& msg, const std::vector<std::string>& validChoices)
 {
     std::string choice;
     bool valid = false;
@@ -40,7 +39,7 @@ std::string AskStr(const std::string& msg, const std::vector<std::string>& valid
     return choice;
 }
 
-int AskInt(const std::string& msg, int min, int max)
+int Utils::AskInt(const std::string& msg, int min, int max)
 {
     int choice;
     do
@@ -58,3 +57,20 @@ int AskInt(const std::string& msg, int min, int max)
     return choice;
 }
 
+int Utils::getTerminalWidth() {
+    CONSOLE_SCREEN_BUFFER_INFO csbi;
+    int columns = 80; // valeur par défaut
+    if (GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi)) {
+        columns = csbi.srWindow.Right - csbi.srWindow.Left + 1;
+    }
+    return columns;
+}
+
+int Utils::getTerminalHeight() {
+    CONSOLE_SCREEN_BUFFER_INFO csbi;
+    int rows = 25; // valeur par défaut
+    if (GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi)) {
+        rows = csbi.srWindow.Bottom - csbi.srWindow.Top + 1;
+    }
+    return rows;
+}

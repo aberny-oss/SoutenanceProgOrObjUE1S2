@@ -1,8 +1,20 @@
 #pragma once
-
+#include <iostream>
 #include <string>
 #include <vector>
+#include <Windows.h>
 
-std::string AskStr(const std::string& msg, const std::vector<std::string>& validChoices);
+class Utils
+{
+public:
 
-int AskInt(const std::string& msg, int min, int max);
+	std::string AskStr(const std::string& msg, const std::vector<std::string>& validChoices);
+
+	int AskInt(const std::string& msg, int min, int max);
+
+	int getTerminalWidth();
+	int getTerminalHeight();
+
+};
+
+

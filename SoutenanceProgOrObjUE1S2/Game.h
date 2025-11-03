@@ -12,6 +12,7 @@
 #include "Mage.h"
 #include "Goblin.h"
 
+
 enum class GameState{MENU, COMBAT, VICTORY, DEFEAT, QUIT};
 
 enum class Mode{MODE_TEXT, MODE_GAME};
@@ -37,6 +38,7 @@ public:
     }
 
     void Init();
+
     void CreateCharacter();
 
     void Run();

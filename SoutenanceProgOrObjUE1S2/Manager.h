@@ -5,6 +5,7 @@
 #include <functional> // pour ForEach
 #include <algorithm>  // pour erase if besoin
 #include <iostream>   // optionnel, si tu veux debug print
+#include "Utils.h"
 
 template <typename T>
 class Manager {
