@@ -132,7 +132,7 @@ public:
         }
     }
     
-
+    g
     void BuildPriorityTable2D(const std::string& teamPriority, size_t rows, size_t cols)
     {
         tableRows = rows;
