@@ -9,6 +9,8 @@
 #include "Utils.h"
 #include "Input.h"
 #include "Warrior.h"
+#include "Mage.h"
+#include "Goblin.h"
 
 enum class GameState{MENU, COMBAT, VICTORY, DEFEAT, QUIT};
 

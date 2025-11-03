@@ -62,9 +62,50 @@ public:
         std::vector<T*> result;
         for (const auto& obj : objects)
         {
+            if (!obj) 
+            {
+                continue;
+            }
             if (obj) obj->Display();
         }
         return result;
+    }
+
+    std::vector<T*> DisplayAllWithPriority(const std::string& teamPriority = "")
+    {
+        std::vector<T*> result;
+        T* priorityObj = nullptr;
+
+        for (auto& obj : objects) {
+            if (!obj)
+            {
+                continue;
+            }
+            if (!teamPriority.empty() && obj->GetTeam() == teamPriority) {
+                priorityObj = obj.get(); // garder en mémoire le perso prioritaire
+            }
+            else {
+                result.push_back(obj.get());
+            }
+        }
+
+        // Si on a trouvé le perso prioritaire, on le met devant
+        if (priorityObj) result.insert(result.begin(), priorityObj);
+
+        return result;
+    }
+
+    std::vector<T*> DisplayByTeam() const
+    {
+        std::vector<T*> result;
+        T* teamObj = nullptr;
+
+        for (const auto& obj : objects)
+            if (!obj)
+            {
+                continue;
+            }
+
     }
 
     void BuildPriorityTable2D(const std::string& teamPriority, size_t rows, size_t cols)
@@ -186,27 +227,6 @@ public:
             if (obj && obj->GetTeam() == team)
                 result.push_back(obj.get());
         }
-        return result;
-    }
-
-    std::vector<T*> DisplayAllWithPriority(const std::string& teamPriority = "")
-    {
-        std::vector<T*> result;
-        T* priorityObj = nullptr;
-
-        for (auto& obj : objects) {
-            if (!obj) continue;
-            if (!teamPriority.empty() && obj->GetTeam() == teamPriority) {
-                priorityObj = obj.get(); // garder en mémoire le perso prioritaire
-            }
-            else {
-                result.push_back(obj.get());
-            }
-        }
-
-        // Si on a trouvé le perso prioritaire, on le met devant
-        if (priorityObj) result.insert(result.begin(), priorityObj);
-
         return result;
     }
 

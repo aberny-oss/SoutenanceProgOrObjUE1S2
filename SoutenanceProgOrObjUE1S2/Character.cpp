@@ -1,19 +1,5 @@
 #include "Character.h"
 
-////Méthode d'affichage
-//void Character::Display() {
-//    std::cout << name << " - Type: " << type << " - Lvl: " << level << " - PV: " << health << "\n";
-//    art.ARTCharacter(type);
-//}
-
-
-
-// Retourne l'ASCII art découpé en lignes AVEC les infos intégrées
-std::vector<std::string> Character::Display()
-{
-    
-}
-
 std::string Character::GetName() const
 {
     return name;
@@ -75,11 +61,7 @@ void Character::AttackByIndex(std::vector<std::string> attacks)
         }
         position += 1;
     }
-
-
-
 }
-
 
 void Character::TakeDamage(int dmg) {
     // On applique les dégâts
@@ -98,18 +80,5 @@ void Character::Heal(int amount) {
 
     // Message à l’écran
     std::cout << name << " se soigne de " << amount << " PV. PV actuels : " << health << "\n";
-}
-
-void Character::SimpleAttack()
-{
-    std::cout << name << " attaque avec ses poings ! \n";
-}
-void Character::HeavyAttack()
-{
-    std::cout << name << " fait une attaque avec ses jambes ! \n";
-}
-void Character::UltimeAttack()
-{
-    std::cout << name << " utilise ses jambes et ses poings ! \n";
 }
 

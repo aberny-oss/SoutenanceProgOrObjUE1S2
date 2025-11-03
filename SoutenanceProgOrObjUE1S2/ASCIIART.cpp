@@ -6,26 +6,6 @@ void ASCIIART::SetInput(const std::string& str)
 }
 
 
-
-
-void ASCIIART::ARTCharacter(const std::string& type)
-{
-    if (type == "Warrior")
-    {
-        std::cout << R"(
-      .-.
-    __|=|__
-   (_/`-`\_)
-   ||\___/||
-   <>/   \<>
-    \|_._|/
-     <_I_>
-      |||
-     /_|_\
-)" << std::endl;
-    }
-}
-
 void ASCIIART::ARTConsoleMenu(int action)
 {
     // Préparer la ligne dynamique de 9 caractères

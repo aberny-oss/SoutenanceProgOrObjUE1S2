@@ -8,7 +8,7 @@ void Game::Init() {
     std::string input;
 
     characterManager.Add(std::make_unique<Warrior>("Vilain1", "Ennemy"));
-    characterManager.Add(std::make_unique<Warrior>("Vilain2", "Ennemy"));
+    characterManager.Add(std::make_unique<Goblin>("Vilain2", "Ennemy"));
 
 
     /*Manager<Item> itemManager;
@@ -38,14 +38,14 @@ void Game::CreateCharacter()
         {
             return characterManager.Add(std::make_unique<Warrior>(name, "Player"));
         }
-       /* else if (type == "mage")
+        else if (type == "mage")
         {
             return characterManager.Add(std::make_unique<Mage>(name, "Player"));
         }
         else if (type == "goblin")
         {
             return characterManager.Add(std::make_unique<Goblin>(name, "Player"));
-        }*/
+        }
 
         system("cls");
         std::cout << "Type invalide. Reessaie !" << std::endl;
@@ -111,7 +111,6 @@ void Game::ShowMenuPrincipal()
 void Game::ShowMenuPerso()
 {
     bool stay = true;
-
     while (stay)
     {
         system("cls"); // efface l'écran à chaque boucle
@@ -120,13 +119,13 @@ void Game::ShowMenuPerso()
         {
             CreateCharacter();
             firstIteration = false;
+            // 1 Construire le tableau une fois
+            /*characterManager.BuildPriorityTable2D("Ennemy", 2, 2);*/
         }
         system("cls");
-        // 1 Construire le tableau une fois
-        characterManager.BuildPriorityTable2D("Ennemy", 2, 2);
 
         // 2 Afficher autant de fois que tu veux
-        characterManager.DisplayTable2D();
+        /*characterManager.DisplayTable2D();*/
         inp.Update();
 
         stay = false;
