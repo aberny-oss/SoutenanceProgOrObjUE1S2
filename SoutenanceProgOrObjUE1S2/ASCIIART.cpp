@@ -96,7 +96,7 @@ void ASCIIART::ARTConsoleMenu(int action)
 
         // Affichage de la ligne dynamique
         std::cout << "   | |  |   " << displayZone << "    |  | |\n";
-        std::cout << "   | |  | Chargement...  |  | |\n";
+        std::cout << "   | |  |   A Bientot !  |  | |\n";
         std::cout << "   | |  |                |  | |\n";
         std::cout << "   | |  '----------------'  | |";
 

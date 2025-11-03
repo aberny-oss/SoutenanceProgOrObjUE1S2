@@ -72,7 +72,7 @@ void Game::Run()
         /*case GameState::COMBAT: StartCombat(); break;
         case GameState::VICTORY: ShowVictory(); break;
         case GameState::DEFEAT: ShowDefeat(); break;*/
-        case GameState::QUIT: std::cout << "Fin du jeu !" << std::endl; break;
+        case GameState::QUIT: Shutdown(); break;
         }
 
         turn += 1;
@@ -91,13 +91,14 @@ void Game::ShowMenuPrincipal()
         // Mettre à jour l'affichage dynamique
         art.SetInput(input);
 
-        if (inp.GetLastInput() == Input::PLAY_GAME) {
-            action = 2;
+        if (inp.GetLastInput() == Input::PLAY_GAME)
+        {
             art.ARTConsoleMenu(action);
             menuID = 1;
             break;
         }
-        else if (inp.GetLastInput() == Input::QUIT_GAME) {
+        else if (inp.GetLastInput() == Input::QUIT_GAME)
+        {
             state = GameState::QUIT;
             break;
         }
@@ -123,9 +124,10 @@ void Game::ShowMenuPerso()
             /*characterManager.BuildPriorityTable2D("Ennemy", 2, 2);*/
         }
         system("cls");
-
+        /*characterManager.DisplayByTeam("Player");*/
+        characterManager.ONEBuildPriorityTable2D("Player", 1, 1);
         // 2 Afficher autant de fois que tu veux
-        /*characterManager.DisplayTable2D();*/
+        characterManager.DisplayTable2D();
         inp.Update();
 
         stay = false;
@@ -134,7 +136,8 @@ void Game::ShowMenuPerso()
 }
 
 void Game::Shutdown() {
-     int action = 3;
+     int action = 2;
+     system("cls");
     art.ARTConsoleMenu(action);
     // Les unique_ptr du manager se libèrent automatiquement
 }

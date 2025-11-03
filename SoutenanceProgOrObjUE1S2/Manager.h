@@ -62,7 +62,7 @@ public:
         std::vector<T*> result;
         for (const auto& obj : objects)
         {
-            if (!obj) 
+            if (!obj)
             {
                 continue;
             }
@@ -71,42 +71,67 @@ public:
         return result;
     }
 
-    std::vector<T*> DisplayAllWithPriority(const std::string& teamPriority = "")
+    /*void DisplayByTeam(const std::string& teamPriority = "")
     {
-        std::vector<T*> result;
-        T* priorityObj = nullptr;
-
+        int nbTeam = 0;
+        std::vector<std::vector<std::string>> ASCII;
         for (auto& obj : objects) {
             if (!obj)
             {
                 continue;
             }
-            if (!teamPriority.empty() && obj->GetTeam() == teamPriority) {
-                priorityObj = obj.get(); // garder en mémoire le perso prioritaire
+            if (obj->GetTeam() == teamPriority) {
+                if (obj) {
+                    ASCII.push_back(obj->Display());
+                }
+                if (ASCII.back().size() > nbTeam) {
+                    nbTeam = ASCII.back().size();
+                }
             }
-            else {
-                result.push_back(obj.get());
+        }
+        for (int line = 0; line < nbTeam; ++line)
+        {
+            for (size_t j = 0; j < ASCII.size(); ++j)
+            {
+                if (line < ASCII[j].size()) {
+                    std::cout << ASCII[j][line];
+                }
             }
         }
 
-        // Si on a trouvé le perso prioritaire, on le met devant
-        if (priorityObj) result.insert(result.begin(), priorityObj);
+    }*/
 
-        return result;
-    }
-
-    std::vector<T*> DisplayByTeam() const
+    void ONEBuildPriorityTable2D(const std::string& teamPriority, size_t rows, size_t cols)
     {
-        std::vector<T*> result;
-        T* teamObj = nullptr;
+        tableRows = rows;
+        tableCols = cols;
+        table2D.clear();
+        table2D.resize(rows, std::vector<T*>(cols, nullptr));
 
-        for (const auto& obj : objects)
+        size_t r = 0, c = 0;
+
+        // Placer d'abord les objets prioritaires
+        for (auto& obj : objects) {
             if (!obj)
             {
                 continue;
             }
-
+            if (obj->GetTeam() == teamPriority)
+            {
+                table2D[r][c] = obj.get();
+                c++;
+                if (c >= cols)
+                {
+                    c = 0; r++;
+                }
+                if (r >= rows)
+                {
+                    return; // tableau plein
+                }
+            }
+        }
     }
+
 
     void BuildPriorityTable2D(const std::string& teamPriority, size_t rows, size_t cols)
     {
@@ -162,7 +187,34 @@ public:
         }
     }
 
-    void DisplayTable2D() const
+    void DisplayTable2D() const {
+        for (size_t i = 0; i < tableRows; ++i) {
+            std::vector<std::vector<std::string>> allASCII;
+            int maxLines = 0;
+            for (size_t j = 0; j < tableCols; ++j) {
+                if (table2D[i][j]) {
+                    allASCII.push_back(table2D[i][j]->Display());
+                }
+                else {
+                    std::vector<std::string> emptyBox = { "" };
+                    allASCII.push_back(emptyBox);
+                }
+                if (allASCII.back().size() > maxLines)
+                    maxLines = allASCII.back().size();
+            }
+            for (int line = 0; line < maxLines; ++line) {
+                for (size_t j = 0; j < tableCols; ++j) {
+                    if (line < allASCII[j].size()) std::cout << allASCII[j][line];
+                    else std::cout << "                ";
+                    std::cout << " ";
+                }
+                std::cout << "\n";
+            }
+            std::cout << "\n";
+        }
+    }
+
+    void fDisplayTable2D() const
     {
         for (size_t i = 0; i < tableRows; ++i)
         {
@@ -177,7 +229,7 @@ public:
                 }
                 else {
                     // Case vide avec bordure
-                    std::vector<std::string> emptyBox = {""};
+                    std::vector<std::string> emptyBox = { "" };
                     allASCII.push_back(emptyBox);
                 }
 
@@ -206,7 +258,7 @@ public:
             std::cout << "\n";
         }
     }
-    
+
     // Rechercher par nom : exige T::GetName() const -> std::string (ou compatible)
     T* FindByName(const std::string& name) {
         for (auto& obj : objects)
