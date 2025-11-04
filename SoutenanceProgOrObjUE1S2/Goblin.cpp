@@ -31,14 +31,20 @@ std::vector<std::string> Goblin::Display() const {
     return lines;
 }
 
-void Goblin::SimpleAttack() {
+void Goblin::SimpleAttack()
+{
+    int atkdmg = 10;
     std::cout << name << " attaque avec sa dague ! \n";
 }
 
-void Goblin::HeavyAttack() {
+void Goblin::HeavyAttack()
+{
+    int atkdmg = 15;
     std::cout << name << " fait un combo rapide ! \n";
 }
 
-//void Goblin::UltimeAttack() {
+//void Goblin::UltimeAttack()
+//{
+//    int atkdmg = 20;
 //    std::cout << name << " utilise sa technique ultime ! \n";
 //}

@@ -4,10 +4,8 @@
 #include <vector>
 #include <algorithm> // pour std::transform
 #include <cctype>    // pour std::tolower
-#include "Manager.h"
-#include "ASCIIART.h"
-#include "Utils.h"
 #include "Input.h"
+#include "Utils.h"
 #include "Warrior.h"
 #include "Mage.h"
 #include "Goblin.h"
@@ -29,6 +27,7 @@ private:
     std::string input;   // input utilisateur
     Manager<Character> characterManager;
     bool firstIteration;
+    Utils u;
 
 public:
 
@@ -50,7 +49,8 @@ public:
     //void ShowMenuPause();
 
     //combat
-    /*void StartCombat();*/
+    void Attack();
+    void StartCombat();
 
     //victoire
     /*void ShowVictory();*/

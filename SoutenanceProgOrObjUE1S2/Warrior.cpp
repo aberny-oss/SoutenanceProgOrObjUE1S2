@@ -32,15 +32,18 @@ std::vector<std::string> Warrior::Display() const {
 
 void Warrior::SimpleAttack()
 {
+    int atkdmg = 10;
     std::cout << name << " attaque avec son epee ! \n";
 }
 
 void Warrior::HeavyAttack()
 {
+    int atkdmg = 15;
     std::cout << name << " fait une attaque lourde ! \n";
 }
 
 void Warrior::UltimeAttack()
 {
+    int atkdmg = 20;
     std::cout << name << " utilise sa rage ultime ! \n";
 }

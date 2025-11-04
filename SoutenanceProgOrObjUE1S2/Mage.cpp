@@ -32,15 +32,18 @@ std::vector<std::string> Mage::Display() const {
 
 void Mage::SimpleAttack()
 {
+    int atkdmg = 10;
     std::cout << name << " attaque avec sa magie ! \n";
 }
 
 void Mage::HeavyAttack()
 {
+    int atkdmg = 15;
     std::cout << name << " fait une attaque magique lourde ! \n";
 }
 
 void Mage::UltimeAttack()
 {
+    int atkdmg = 20;
     std::cout << name << " utilise sa magie ultime ! \n";
 }

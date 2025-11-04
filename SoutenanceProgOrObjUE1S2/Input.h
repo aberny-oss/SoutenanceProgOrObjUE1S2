@@ -14,23 +14,18 @@ public:
 	static const std::string PLAY_GAME;
 	static const std::string QUIT_GAME;
 
+
 	Input() : lastInput() {}
 
 	// lit une entrée utilisateur
-	void Update();
+	std::string Update();
 
     // affiche la dernière touche
 	void Display() const;
 
-	std::string GetLastInput() const
-	{
-		return lastInput;
-	}
+	std::string GetLastInput() const;
 
-	static bool IsPressKey(std::string c)
-	{
-		return c == PLAY_GAME || c == QUIT_GAME;
-	}
+	static bool IsPressKey(std::string c);
 
 
 };

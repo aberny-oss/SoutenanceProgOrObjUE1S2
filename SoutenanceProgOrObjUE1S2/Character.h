@@ -32,7 +32,7 @@ public:
     int GetNbAttacks() const;
     void DisplayAttacks() const;
     /*virtual void UseAttackByIndex(int index);*/
-    void AttackByIndex(std::vector<std::string> attacks);
+    void AttackByIndex(int index);
 
     void TakeDamage(int dmg);
     void Heal(int amount);

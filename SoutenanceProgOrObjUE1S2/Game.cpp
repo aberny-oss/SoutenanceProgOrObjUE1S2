@@ -69,9 +69,9 @@ void Game::Run()
         }
 
         switch (state) {
-        /*case GameState::COMBAT: StartCombat(); break;
-        case GameState::VICTORY: ShowVictory(); break;
-        case GameState::DEFEAT: ShowDefeat(); break;*/
+        case GameState::COMBAT: StartCombat(); break;
+        //case GameState::VICTORY: ShowVictory(); break;
+        //case GameState::DEFEAT: ShowDefeat(); break;
         case GameState::QUIT: Shutdown(); break;
         }
 
@@ -79,25 +79,25 @@ void Game::Run()
     }
 }
 
+
 void Game::ShowMenuPrincipal()
 {
     int action = 0;
     art.ARTConsoleMenu(action); // affiche menu initial
 
     while (true) {
-        inp.Update(); // inp est un objet Input
-        input = inp.GetLastInput();
+        input = inp.Update();
 
         // Mettre à jour l'affichage dynamique
         art.SetInput(input);
 
-        if (inp.GetLastInput() == Input::PLAY_GAME)
+        if (input == Input::PLAY_GAME)
         {
             art.ARTConsoleMenu(action);
             menuID = 1;
             break;
         }
-        else if (inp.GetLastInput() == Input::QUIT_GAME)
+        else if (input == Input::QUIT_GAME)
         {
             state = GameState::QUIT;
             break;
@@ -111,26 +111,101 @@ void Game::ShowMenuPrincipal()
 
 void Game::ShowMenuPerso()
 {
+    if (firstIteration == true)
+    {
+        system("cls");
+        CreateCharacter();
+        firstIteration = false;
+        /*characterManager.BuildPriorityTable2D("Ennemy", 2, 2);*/
+    }
+    characterManager.ONEBuildPriorityTable2D("Player", 1, 1);
     bool stay = true;
     while (stay)
     {
-        system("cls"); // efface l'écran à chaque boucle
-
-        if (firstIteration == true)
-        {
-            CreateCharacter();
-            firstIteration = false;
-            // 1 Construire le tableau une fois
-            /*characterManager.BuildPriorityTable2D("Ennemy", 2, 2);*/
-        }
         system("cls");
-        characterManager.ONEBuildPriorityTable2D("Player", 1, 1);
-        // 2 Afficher autant de fois que tu veux
         characterManager.DisplayTable2D();
-        inp.Update();
+        std::cout << "Que souhaite vous faire Combattre (j) ou quitter le jeu (q)" << std::endl;
+        input = inp.Update();
+
+        if (input == Input::PLAY_GAME)
+        {
+            state = GameState::COMBAT;
+            break;
+        }
+        else if (input == Input::QUIT_GAME)
+        {
+            state = GameState::QUIT;
+            break;
+        }
 
         stay = false;
     }
+
+}
+
+    void Game::Attack()
+    {
+        int intInput;
+        // Récupère tous les personnages de l'équipe "Player" :
+        std::vector<Character*> players = characterManager.FindByTeam("Player");
+        std::vector<Character*> ennemys = characterManager.FindByTeam("Ennemy");
+    
+
+        system("cls");
+        std::cout << "Quel attaque voulez vous utiliser ? \n" << std::endl;
+
+        // Prend le premier joueur (si plusieurs joueurs, à adapter)
+        int nbAttacks = players[0]->GetNbAttacks();
+        std::cout << "Nombre d'attaques du joueur : " << nbAttacks << std::endl;
+        std::cout << "Choisissez une attaque (1-" << nbAttacks << "): ";
+        intInput = u.AskInt("", 1, nbAttacks);
+
+        system("cls");
+        players[0]->AttackByIndex(intInput);
+
+
+        while (true)
+        {
+            
+            std::cout << "Sur qui ? (Entre son numero) \n" << std::endl;
+            std::cin >> intInput;
+
+            int position = 0;
+            if (intInput < 1 || intInput > characterManager.Size())
+            {
+                std::cout << "Nombre trop grand ou trop petit !" << std::endl;
+            }
+            if (position == intInput)
+            {
+                std::cout << position;
+                break;
+            }
+            position += 1;
+        }
+    
+    }
+
+void Game::StartCombat()
+{
+    bool fight = true;
+    characterManager.BuildPriorityTable2D("Ennemy", 2, 2);
+    while (fight)
+    {
+        system("cls");
+        characterManager.DisplayTable2D();
+        std::cout << "Que souhaite vous faire : Attaquer/Soigner" << std::endl;
+        Attack();
+
+        inp.Update();
+        input = inp.GetLastInput();
+
+
+
+
+    }
+    
+
+
 
 }
 

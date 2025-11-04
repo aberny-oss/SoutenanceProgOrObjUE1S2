@@ -42,8 +42,9 @@ void Character::DisplayAttacks() const {
 //    }
 //}
 
-void Character::AttackByIndex(std::vector<std::string> attacks)
+void Character::AttackByIndex(int index)
 {
+    std::vector<std::string> attacks;
     int intInput;
     std::cout << "Sur qui ? (Entre son numero) \n" << std::endl;
     std::cin >> intInput;
