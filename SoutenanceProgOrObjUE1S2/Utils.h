@@ -12,8 +12,8 @@ public:
 
 	int AskInt(const std::string& msg, int min, int max);
 
-	int getTerminalWidth();
-	int getTerminalHeight();
+	static int getTerminalWidth();
+	static int getTerminalHeight();
 
 };
 

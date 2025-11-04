@@ -124,7 +124,6 @@ void Game::ShowMenuPerso()
             /*characterManager.BuildPriorityTable2D("Ennemy", 2, 2);*/
         }
         system("cls");
-        /*characterManager.DisplayByTeam("Player");*/
         characterManager.ONEBuildPriorityTable2D("Player", 1, 1);
         // 2 Afficher autant de fois que tu veux
         characterManager.DisplayTable2D();

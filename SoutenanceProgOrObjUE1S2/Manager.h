@@ -15,7 +15,9 @@ private:
     size_t tableRows = 0;
     size_t tableCols = 0;
 
+
 public:
+
 
     // Ajouter un objet (on passe un unique_ptr)
     void Add(std::unique_ptr<T> obj)
@@ -48,14 +50,6 @@ public:
 
     // Vider tous les objets
     void Clear() { objects.clear(); }
-
-    // Mettre à jour tous les objets : exige T::Update() sans param
-    /*void UpdateAll() {
-        for (auto& obj : objects)
-        {
-            if (obj) obj->Update();
-        }
-    }*/
 
     // Afficher tous les objets : exige T::Display() const ou non
     std::vector<T*> DisplayAll() const
@@ -158,31 +152,44 @@ public:
     }
 
     void DisplayTable2D() const {
-        for (size_t i = 0; i < tableRows; ++i) {
-            std::vector<std::vector<std::string>> allASCII;
-            int maxLines = 0;
-            for (size_t j = 0; j < tableCols; ++j) {
-                if (table2D[i][j]) {
-                    allASCII.push_back(table2D[i][j]->Display());
-                }
-                else {
-                    std::vector<std::string> emptyBox = { "" };
-                    allASCII.push_back(emptyBox);
-                }
-                if (allASCII.back().size() > maxLines)
-                    maxLines = allASCII.back().size();
+    int term_width = Utils::getTerminalWidth();
+    for (size_t i = 0; i < tableRows; ++i) {
+        // 1. Récupère la matrice ASCII de chaque colonne pour la rangée i
+        std::vector<std::vector<std::string>> allASCII;
+        int maxLines = 0;
+        for (size_t j = 0; j < tableCols; ++j) {
+            if (table2D[i][j]) {
+                allASCII.push_back(table2D[i][j]->Display());
+            } else {
+                // Ajuste ici la largeur d’une case vide si nécessaire !
+                std::vector<std::string> emptyBox = {""};
+                allASCII.push_back(emptyBox);
             }
-            for (int line = 0; line < maxLines; ++line) {
-                for (size_t j = 0; j < tableCols; ++j) {
-                    if (line < allASCII[j].size()) std::cout << allASCII[j][line];
-                    else std::cout << "                ";
-                    std::cout << " ";
-                }
-                std::cout << "\n";
-            }
-            std::cout << "\n";
+            if (allASCII.back().size() > maxLines)
+                maxLines = allASCII.back().size();
         }
+        // 2. Affiche la rangée bloc par bloc, ligne après ligne
+        for (int line = 0; line < maxLines; ++line) {
+            std::string line_content;
+            for (size_t j = 0; j < tableCols; ++j) {
+                // Si le bloc de la colonne a cette ligne, sinon ligne vide de taille équivalente
+                if (line < allASCII[j].size())
+                    line_content += allASCII[j][line];
+                else
+                    line_content += std::string(allASCII[j][0].size(), ' ');
+                // Séparateur optionnel entre colonnes
+                line_content += " ";
+            }
+            // 3. Calcul du padding global pour centrer la LIGNE ENTIÈRE
+            int padding = (term_width - static_cast<int>(line_content.size())) / 2;
+            if (padding > 0) std::cout << std::string(padding, ' ');
+            std::cout << line_content << "\n";
+        }
+        // Optionnel : saut entre rangées/équipes
+        std::cout << "\n";
     }
+}
+
 
     // Rechercher par nom : exige T::GetName() const -> std::string (ou compatible)
     T* FindByName(const std::string& name) {
